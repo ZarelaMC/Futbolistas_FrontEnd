@@ -1,0 +1,55 @@
+<app-menu></app-menu>
+<div class="container">
+
+    <div class="row">
+        <mat-toolbar color="primary">
+            <span>Futbolistas</span>
+        </mat-toolbar>
+    </div>
+
+    <div class="row" style="margin-top: 2%">
+        <mat-form-field class="col-md-12">
+            <mat-label>Ingrese el ID:</mat-label>
+            <input matInput [(ngModel)]="varIdFutbolista">
+        </mat-form-field>
+    </div>
+
+    <div class="row" style="display: flex; align-items: center; justify-content: center">
+        <div class="col-md-2">
+            <button mat-raised-button type="button" color="primary" style="width: 100px;" (click)="buscarID()">Buscar</button>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 3%">
+        <mat-table #table class="mat-cell" [dataSource]="dataSource">
+            <ng-container matColumnDef="idFutbolista">
+                <mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.idFutbolista }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="nombres">
+                <mat-header-cell *matHeaderCellDef>Nombres</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.nombres }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="apellidos">
+                <mat-header-cell *matHeaderCellDef>Apellidos</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.apellidos }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fechaNacimiento">
+                <mat-header-cell *matHeaderCellDef>Fecha de Nacimiento</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.fechaNacimiento | date:"dd/MM/yyyy" }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="caracteristicas">
+                <mat-header-cell *matHeaderCellDef>Características</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.caracteristicas }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="posicion">
+                <mat-header-cell *matHeaderCellDef>Posición</mat-header-cell>
+                <mat-cell *matCellDef="let aux">{{ aux.posicion.descripcion }}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let aux; columns: displayedColumns"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[6, 8, 10]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+.mat-column-idFutbolista {
+    flex: 0 0 8%;
+}
+.mat-column-nombres {
+    flex: 0 0 15%;
+}
+.mat-column-apellidos {
+    flex: 0 0 20%;
+}
+.mat-column-fechaNacimiento {
+    flex: 0 0 10%;
+}
+.mat-column-caracteristicas {
+    flex: 0 0 30%;
+}
+.mat-column-posicion{
+    flex: 0 0 17%;
+}
