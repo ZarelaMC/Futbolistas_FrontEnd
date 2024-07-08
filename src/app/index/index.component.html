@@ -1,5 +1,25 @@
 <app-menu></app-menu>
 <div class="container text-center">
-    <div *ngIf="isLogged; else loggedOut"><h5>Bienvenido {{nombreUsuario}}</h5></div>
-    <ng-template #loggedOut><h5>Para ingresar debe Inicia Sesión</h5></ng-template>
+    <ng-container *ngIf="isLogged; else loggedOut">
+        <div>
+            <h4>Bienvenido {{ nombreUsuario }}</h4>
+        </div>
+        <div class="info">
+            <h5><strong>Consideraciones de la solución:</strong></h5>
+            <ul>
+                <li>1. Tanto el listado como el filtrado de futbolistas se encuentran en la sección "Futbolista"</li>
+                <li>2. Validación de ingreso de caracteres en el campo de filtro:</li>
+                <ul>
+                    <li>Sólo acepta valores numéricos o espacios vacíos.</li>
+                    <li>Limpia los espacios vacíos de la cadena ingresada.</li>
+                </ul>
+                <li>3. La solución fue implementada usando únicamente Spring Boot y Angular</li>
+            </ul>
+        </div>
+    </ng-container>
+    <ng-template #loggedOut>
+        <div>
+            <h5>Para ingresar debes iniciar sesión</h5>
+        </div>
+    </ng-template>
 </div>

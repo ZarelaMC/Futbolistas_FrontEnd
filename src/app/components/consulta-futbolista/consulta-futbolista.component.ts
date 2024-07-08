@@ -26,25 +26,45 @@ export class ConsultaFutbolistaComponent implements OnInit {
   displayedColumns = ["idFutbolista", "nombres", "apellidos", "fechaNacimiento","caracteristicas", "posicion"];
 
   //Variable - parámetro de búsqueda ID
-  varIdFutbolista: number = -1;
+  varIdFutbolista: string = "";
   
+    //Validators - 
+    formFutbolista = this.formBuilder.group
+    ({
+      validaFiltro: ['', [Validators.pattern(/^([0-9\s]*)$/)]]
+    });
 
     constructor(
     private UtilService : UtilService,
     private futbolistaService: FutbolistaService,
+    private formBuilder: FormBuilder,
     ) {}
 
     buscarID(){
-      console.log(">>> Filtrar [inicio]"); 
-      console.log(">>> ID del Futbolista" + this.varIdFutbolista); 
+      try{
+          if (this.varIdFutbolista.trim() !== "") {
+            console.log(">>> Filtrar [inicio]"); 
+            console.log(">>> ID del Futbolista" + this.varIdFutbolista); 
 
-      this.futbolistaService.listarFutbolistaSegunId(this.varIdFutbolista).subscribe(
-          x => {
-            this.dataSource = new MatTableDataSource(x);
-            this.dataSource.paginator = this.paginator;
+            this.futbolistaService.listarFutbolistaSegunId(parseInt(this.varIdFutbolista)).subscribe(
+                x => {
+                  this.dataSource = new MatTableDataSource(x);
+                  this.dataSource.paginator = this.paginator;
+                }
+            );
+            console.log(">>> Filtrar [fin]"); 
+          } else {
+            this.futbolistaService.listarFutbolistaSegunId(parseInt("-1")).subscribe(
+              x => {
+                this.dataSource = new MatTableDataSource(x);
+                this.dataSource.paginator = this.paginator;
+              }
+          );
           }
-      );
-      console.log(">>> Filtrar [fin]"); 
+          
+      } catch (error) {
+        console.error('Error al buscar ID:', error);
+      }
     }
 
 
@@ -57,9 +77,9 @@ export class ConsultaFutbolistaComponent implements OnInit {
     );
     }
 
-  ngOnInit(): void {
-    this.listarTodosFutbolistas();
-  }
+      ngOnInit(): void {
+        this.listarTodosFutbolistas();
+      }
 
 
 

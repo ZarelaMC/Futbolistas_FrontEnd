@@ -8,9 +8,14 @@
     </div>
 
     <div class="row" style="margin-top: 2%">
-        <mat-form-field class="col-md-12">
+        <mat-form-field class="col-md-12"  [formGroup]="formFutbolista">
             <mat-label>Ingrese el ID:</mat-label>
-            <input matInput [(ngModel)]="varIdFutbolista">
+            <input matInput [(ngModel)]="varIdFutbolista" formControlName="validaFiltro">
+            <mat-hint style="color: red"  *ngIf="formFutbolista.controls.validaFiltro.touched">
+                <span *ngIf="formFutbolista.controls.validaFiltro.hasError('pattern')">
+                    El ID sólo debe tener caracteres numéricos                     
+                </span>
+          </mat-hint>
         </mat-form-field>
     </div>
 
@@ -21,6 +26,7 @@
     </div>
 
     <div class="row" style="margin-top: 3%">
+        <!--Tabla con datos-->
         <mat-table #table class="mat-cell" [dataSource]="dataSource">
             <ng-container matColumnDef="idFutbolista">
                 <mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
@@ -49,7 +55,36 @@
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let aux; columns: displayedColumns"></mat-row>
+
+            
         </mat-table>
-        <mat-paginator [pageSizeOptions]="[6, 8, 10]" showFirstLastButtons></mat-paginator>
+        
+        <!-- Pie de tabla-->
+        <mat-table #table class="mat-cell" >
+            <ng-container matColumnDef="idFutbolista">
+                <mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
+            </ng-container>
+            <ng-container matColumnDef="nombres">
+                <mat-header-cell *matHeaderCellDef>Nombres</mat-header-cell>
+            </ng-container>
+            <ng-container matColumnDef="apellidos">
+                <mat-header-cell *matHeaderCellDef>Apellidos</mat-header-cell>
+            </ng-container>
+            <ng-container matColumnDef="fechaNacimiento">
+                <mat-header-cell *matHeaderCellDef>Fecha de Nacimiento</mat-header-cell>
+            </ng-container>
+            <ng-container matColumnDef="caracteristicas">
+                <mat-header-cell *matHeaderCellDef>Características</mat-header-cell>
+            </ng-container>
+            <ng-container matColumnDef="posicion">
+                <mat-header-cell *matHeaderCellDef>Posición</mat-header-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let aux; columns: displayedColumns"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
     </div>
+
+    
 </div>
